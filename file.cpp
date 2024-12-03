@@ -66,10 +66,56 @@ void insertionsort(vector<int> &arr, int n){
    printVector(arr,n);
 }
 
+void merge(vector<int> &arr, int low, int mid, int high){
+   int left = low;
+   int right = mid+1;
+   vector<int> temp;
 
+   while (left <= mid && right <= high){
+      if (arr[left] <= arr[right]){
+         temp.push_back(arr[left]);
+         left++;
+      }
+      else{
+         temp.push_back(arr[right]);
+         right++;
+      }
+
+   }
+
+   while (left<=mid){
+      temp.push_back(arr[left++]);
+   }
+
+   while (right<=high){
+      temp.push_back(arr[right++]);
+   }
+
+   for (int i = low;i<=high;i++){
+      arr[i] = temp[i-low];
+   }
+
+}
+
+void mergesort(vector<int> &a, int low, int high){
+   if (low >= high){
+      return;
+   }
+
+   int mid = low + (high - low)/2;
+
+   mergesort(a, low, mid);
+   mergesort(a, mid+1, high);
+   merge(a, low, mid, high);
+
+}
 int main() {
    vector<int> a = {9,3,2,1,5,4,7};
    int n = 7;
+
+   mergesort(a,0,n-1);
+   printVector(a,n);
+
 
    // bubblesort(a,n);
    // selectionsort(a,n);
