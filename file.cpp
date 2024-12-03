@@ -109,17 +109,50 @@ void mergesort(vector<int> &a, int low, int high){
    merge(a, low, mid, high);
 
 }
+
+
+int partition(vector<int> &arr, int low, int high){
+   int i = low;
+   int j = high;
+   int pivot = arr[low];
+
+   while (i<j){
+      while (arr[i] <= pivot && i<=high-1){
+         i++;
+      }
+
+      while (arr[j] > pivot && j>=low+1){
+         j--;
+      }
+
+      if (i<j){
+         swap(arr[i], arr[j]);
+      }
+
+   }
+   swap(arr[low], arr[j]);
+   return j;
+}
+
+void quicksort(vector<int> &a, int low, int high){
+   if (low < high){
+      int p = partition(a, low, high);
+      quicksort(a, low, p-1);
+      quicksort(a, p+1, high);
+   }
+}
+
 int main() {
    vector<int> a = {9,3,2,1,5,4,7};
    int n = 7;
 
-   mergesort(a,0,n-1);
-   printVector(a,n);
-
-
    // bubblesort(a,n);
    // selectionsort(a,n);
    // insertionsort(a,n);
+   // mergesort(a,0,n-1);
+   // quicksort(a,0,n-1);
+
+   printVector(a,n);
    
 
    
